@@ -48,10 +48,10 @@ public class EspeciesDAO implements InterfaceDAO<Especies> {
     @Override
     public List<String> findAutocomplete(String nombre, EntityManager entityManager) {
         boolean correcto;
-        Query select = entityManager.createQuery("select especies.nombre from Especies especies ");
+        Query select = entityManager.createQuery("select especies.nombre from Especies especies like '"+nombre+"%'");
 
         List<String> selectStringEspecies = select.getResultList();
-
+/*
         List<String> cadenaGuardada = new ArrayList<>();
 
         for(String string : selectStringEspecies){
@@ -65,9 +65,9 @@ public class EspeciesDAO implements InterfaceDAO<Especies> {
                     correcto = false;
                 }
             }
-        }
+        }*/
 
-        return cadenaGuardada;
+        return selectStringEspecies;
     }
 
     @Override

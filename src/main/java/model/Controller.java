@@ -21,14 +21,15 @@ public class Controller {
         PersonajeDAO personajeDAO = new PersonajeDAO();
         SagasDAO sagasDAO = new SagasDAO();
         int opcion1 = 1, opcion2 = 1, salir = 1, atras= 1;
+        boolean out = false;
         while(salir!=0) {
 
             opcion1 = menu1();
 
             switch (opcion1) {
                 case 1:
-                    atras = 1;
-                    while(atras != 0 || salir != 0) {
+                    atras = 2;
+                    while(atras != 0 && salir != 0) {
                         opcion2 = menu2();
                         switch (opcion2) {
                             case 1:
@@ -36,7 +37,7 @@ public class Controller {
                                 break;
                             case 2:
                                 boolean correcto = false;
-                                while (!correcto) {
+                                while (!correcto && !out) {
                                     Especies especie = new Especies();
                                     System.out.println("Introduce nombre de la especie");
                                     String nombre = scanner.nextLine();
@@ -49,7 +50,7 @@ public class Controller {
                                     if (!nPlan.isEmpty() && nPlan.size() == 1) {
                                         especie.setPlanetaOrigen(planetasDAO.find(entityManager, nombrePlaneta));
 
-                                        boolean out = false;
+                                        out = false;
                                         while(!out) {
                                             System.out.println("Introduce fisiologia de la especie");
                                             if(scanner.hasNextInt()){
@@ -61,40 +62,46 @@ public class Controller {
                                             }
                                         }
                                     } else {
-                                        boolean out = false;
+
                                         while(!out) {
                                             System.out.println("No hay planeta con ese nombre, introduce 0 para volver al menu principal, o 1 para volver a insertar");
                                             if(scanner.hasNextInt()){
                                                 atras = scanner.nextInt();
                                                 if(atras == 0){
-                                                    break;
+                                                    out = true;
+
                                                 }
-                                                out = true;
                                             }else {
                                                 System.out.println("Valor  incorrecto");
                                             }
                                         }
                                     }
-                                    entityManager.persist(especie);
+                                    if(atras != 0 && atras != 1) {
+                                        entityManager.persist(especie);
+                                    }
                                 }
-
+                                break;
 
                             case 3:
                                 System.out.println("Introduce nombre de la especie que quieres modificar");
                                 String nombre = scanner.nextLine();
                                 nombre = nombre.toUpperCase().charAt(0) + nombre.substring(1, nombre.length()).toLowerCase();
-                                
+                                break;
                             case 4:
                                 opcion2 = menu2();
+                                break;
 
                             case 5:
                                 System.out.println("Atras....");
                                 atras = 0;
+                                break;
                             default:
                                 System.out.println("Saliendo");
                                 salir = 0;
+                                break;
                         }
                     }
+                    break;
                 case 2:
                     opcion2 = menu2();
                 case 3:
@@ -107,6 +114,8 @@ public class Controller {
                     opcion2 = menu2();
                 default:
                     System.out.println("Saliendo....");
+                    salir = 0;
+                    break;
             }
         }
     }
@@ -142,7 +151,7 @@ public class Controller {
             if(sc.hasNextInt()){
                 opcion = sc.nextInt();
                 sc.nextLine();
-                if(opcion >= 0 && opcion < 5){
+                if(opcion >= 0 && opcion <= 5){
                     correcto = true;
                 }else {
                     System.out.println("El numero introducido está fuera de rango");
