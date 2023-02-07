@@ -11,6 +11,5 @@ public interface InterfaceDAO<T> {
     boolean delete(T t, EntityManager factory);
     void update(T t, EntityManager factory);
 
-    List<String> findAutocomplete(String nombre,EntityManager entityManager);
     T find(EntityManager factory, String nombre);
 }

@@ -1,14 +1,12 @@
 package model.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "planetas")
 public class Planeta {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
@@ -21,7 +19,7 @@ public class Planeta {
     @Column(name = "esquirla", length = 30)
     private String esquirla;
 
-    public Planeta() {
+    public Planeta(String s, String roshar, String sistema_de_roshar, String esquirla_honor) {
     }
 
     public Planeta(String nombre, String sistema, String esquirla) {

@@ -9,6 +9,7 @@ import java.util.List;
 @Table(name = "magias")
 public class Magia {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
@@ -66,4 +67,11 @@ public class Magia {
         this.esquirla = esquirla;
     }
 
+    public List<Personaje> getPersonajes() {
+        return personajes;
+    }
+
+    public void setPersonajes(List<Personaje> personajes) {
+        this.personajes = personajes;
+    }
 }

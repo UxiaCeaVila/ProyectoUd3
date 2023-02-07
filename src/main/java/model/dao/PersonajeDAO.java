@@ -43,34 +43,11 @@ public class PersonajeDAO implements InterfaceDAO<Personaje> {
         factory.getTransaction().commit();
     }
 
-    @Override
-    public List<String> findAutocomplete(String nombre, EntityManager entityManager) {
-        boolean correcto;
-        Query select = entityManager.createQuery("select personaje.nombre from Personaje personaje ");
 
-        List<String> selectStringPersonaje = select.getResultList();
-
-        List<String> cadenaGuardada = new ArrayList<>();
-
-        for(String string : selectStringPersonaje){
-            correcto  =true;
-            for(int i =0 ; i < nombre.length() && correcto; i++){
-                if(string.toLowerCase().charAt(i) == nombre.toLowerCase().charAt(i)){
-                    if(i == (nombre.length() - 1)){
-                        cadenaGuardada.add(string);
-                    }
-                }else {
-                    correcto = false;
-                }
-            }
-        }
-
-        return cadenaGuardada;
-    }
 
     @Override
     public Personaje find(EntityManager factory, String nombre) {
-        Query select = factory.createQuery("select personaje from Personaje personaje where personaje.nombre is "+nombre);
+        Query select = factory.createQuery("select personaje from Personaje personaje where personaje.nombre = '"+nombre+"'");
         Personaje personaje  = (Personaje) select.getSingleResult();
         return personaje;
     }
