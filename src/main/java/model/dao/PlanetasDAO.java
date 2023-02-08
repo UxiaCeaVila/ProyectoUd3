@@ -9,15 +9,20 @@ import java.util.List;
 public class PlanetasDAO implements InterfaceDAO<Planeta> {
     @Override
     public void insert(Planeta planeta, EntityManager factory) {
-        factory.getTransaction().begin();
-        factory.persist(planeta);
-        factory.getTransaction().commit();
+        try {
+            factory.getTransaction().begin();
+            factory.persist(planeta);
+            factory.getTransaction().commit();
+            System.out.println(planeta.getId());
+        }catch (Exception e){
+            factory.getTransaction().rollback();
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
     public List<Planeta> select(EntityManager entityManager) {
         Query select = entityManager.createQuery("select planeta from Planeta planeta");
-        Planeta planeta  = new Planeta("1", "Roshar", "Sistema de Roshar", "Esquirla Honor");
         List<Planeta> planetaList = select.getResultList();
         return planetaList;
     }

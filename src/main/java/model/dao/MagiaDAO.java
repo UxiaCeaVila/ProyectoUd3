@@ -11,9 +11,15 @@ import java.util.List;
 public class MagiaDAO implements InterfaceDAO<Magia> {
     @Override
     public void insert(Magia magia, EntityManager factory) {
-        factory.getTransaction().begin();
-        factory.persist(magia);
-        factory.getTransaction().commit();
+        try {
+
+            factory.getTransaction().begin();
+            factory.persist(magia);
+            factory.getTransaction().commit();
+        }catch (Exception e){
+            factory.getTransaction().rollback();
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override

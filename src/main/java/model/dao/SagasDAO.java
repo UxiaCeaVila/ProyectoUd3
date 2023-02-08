@@ -10,15 +10,21 @@ import java.util.List;
 public class SagasDAO implements InterfaceDAO<Sagas> {
     @Override
     public void insert(Sagas sagas, EntityManager factory) {
-        factory.getTransaction().begin();
-        factory.persist(sagas);
-        factory.getTransaction().commit();
+        try {
+
+            factory.getTransaction().begin();
+            factory.persist(sagas);
+            factory.getTransaction().commit();
+
+        }catch (Exception e){
+            factory.getTransaction().rollback();
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
     public List<Sagas> select(EntityManager entityManager) {
         Query select = entityManager.createQuery("select saga from Sagas saga");
-        Sagas saga  = new Sagas();
         List<Sagas> sagasList = select.getResultList();
         return sagasList;
     }

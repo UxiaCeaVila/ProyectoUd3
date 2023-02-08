@@ -6,8 +6,8 @@ import jakarta.persistence.*;
 @Table(name = "planetas")
 public class Planeta {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Integer id;
 
     @Column(name = "nombre", nullable = false, length = 50)
@@ -19,7 +19,7 @@ public class Planeta {
     @Column(name = "esquirla", length = 30)
     private String esquirla;
 
-    public Planeta(String s, String roshar, String sistema_de_roshar, String esquirla_honor) {
+    public Planeta() {
     }
 
     public Planeta(String nombre, String sistema, String esquirla) {

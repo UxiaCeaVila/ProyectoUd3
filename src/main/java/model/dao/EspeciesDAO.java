@@ -13,9 +13,15 @@ import java.util.List;
 public class EspeciesDAO implements InterfaceDAO<Especies> {
     @Override
     public void insert(Especies especies, EntityManager factory) {
-        factory.getTransaction().begin();
-        factory.persist(especies);
-        factory.getTransaction().commit();
+        try {
+            factory.getTransaction().begin();
+            factory.persist(especies);
+            factory.getTransaction().commit();
+
+        }catch (Exception e){
+            factory.getTransaction().rollback();
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override

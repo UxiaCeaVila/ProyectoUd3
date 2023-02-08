@@ -10,6 +10,7 @@ public class Interior extends ControllerView{
     public static void insertar() {
         PlanetasDAO planetasDAO = new PlanetasDAO();
 
+
         Planeta planeta = new Planeta("Roshar", "Sistema de Roshar", "Esquirla Honor");
         planetasDAO.insert(planeta, entityManager);
 

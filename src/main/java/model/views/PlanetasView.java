@@ -21,7 +21,7 @@ public class PlanetasView extends ControllerView{
         boolean correcto = false;
         int atras = 1;
         while (!correcto && atras!=0) {
-            Planeta planeta = new Planeta("1", "Roshar", "Sistema de Roshar", "Esquirla Honor");
+            Planeta planeta = new Planeta();
             System.out.println("Introduce nombre del planeta");
             String nombre = scanner.nextLine();
             nombre = nombre.toUpperCase().charAt(0) + nombre.substring(1, nombre.length()).toLowerCase();

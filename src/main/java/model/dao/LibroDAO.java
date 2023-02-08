@@ -11,9 +11,15 @@ import java.util.List;
 public class LibroDAO implements InterfaceDAO<Libro> {
     @Override
     public void insert(Libro libro, EntityManager factory) {
-        factory.getTransaction().begin();
-        factory.persist(libro);
-        factory.getTransaction().commit();
+        try {
+            factory.getTransaction().begin();
+            factory.persist(libro);
+            factory.getTransaction().commit();
+
+        }catch (Exception e){
+            factory.getTransaction().rollback();
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override

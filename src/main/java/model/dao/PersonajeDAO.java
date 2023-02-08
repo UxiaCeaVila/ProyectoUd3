@@ -11,9 +11,15 @@ import java.util.List;
 public class PersonajeDAO implements InterfaceDAO<Personaje> {
     @Override
     public void insert(Personaje personaje, EntityManager factory) {
-        factory.getTransaction().begin();
-        factory.persist(personaje);
-        factory.getTransaction().commit();
+        try {
+
+            factory.getTransaction().begin();
+            factory.persist(personaje);
+            factory.getTransaction().commit();
+        }catch (Exception e){
+            factory.getTransaction().rollback();
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
