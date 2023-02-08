@@ -13,7 +13,6 @@ public class PlanetasDAO implements InterfaceDAO<Planeta> {
             factory.getTransaction().begin();
             factory.persist(planeta);
             factory.getTransaction().commit();
-            System.out.println(planeta.getId());
         }catch (Exception e){
             factory.getTransaction().rollback();
             System.out.println(e.getMessage());
